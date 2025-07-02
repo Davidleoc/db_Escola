@@ -1,0 +1,61 @@
+-- Criando as tabelas do banco de dados db_escola
+create table Alunos (
+  id_aluno INT PRIMARY KEY,	
+  nome_aluno Varchar(200),
+  data_nasc_aluno date,
+  genero_aluno varchar(50),
+  telefone_aluno INT,
+  email_aluno varchar(150)
+);
+
+CREATE TABLE Professor (
+  id_professor INT PRIMARY KEY,
+  nome_professor Varchar(200),
+  data_nasc_professor date,
+  genero_professor varchar(50),
+  telefone_professor INT,
+  email_professor varchar(150)
+);
+
+CREATE TABLE Diciplinas (
+  id_diciplinas INT PRIMARY KEY,
+  nome_disciplina varchar(100),
+  desc_disciplina varchar(150),
+  carga_horaria varchar(50),
+  id_orientador INT,
+  FOREIGN KEY (id_orientador) REFERENCES Professor(id_professor)
+);
+
+CREATE TABLE Turma (
+  id_turma INT PRIMARY KEY,
+  nome_turma varchar(20),
+  ano_letivo date,
+  id_orientador_turma INT,
+  FOREIGN Key (id_orientador_turma) REFERENCES Diciplinas(id_orientador)
+);
+
+CREATE TABLE Turma_Disciplinas (
+  id_turma INT,
+  id_disciplinas INT,
+  PRIMARY KEY (id_turma, id_disciplinas),  -- chave composta
+  FOREIGN KEY (id_turma) REFERENCES Turma(id_turma),
+  FOREIGN KEY (id_disciplinas) REFERENCES Diciplinas(id_disciplinas)
+);
+
+CREATE TABLE Turma_Alunos (
+  id_turma INT,
+  id_aluno INT,
+  PRIMARY KEY (id_turma, id_aluno),  -- chave primária composta (opcional, mas recomendada)
+  FOREIGN KEY (id_turma) REFERENCES Turma(id_turma),
+  FOREIGN KEY (id_aluno) REFERENCES Aluno(id_aluno)
+);
+
+CREATE TABLE Notas (
+  id_nota INT PRIMARY KEY,
+  id_aluno INT,
+  id_disciplinas INT,
+  valor_nota DOUBLE,
+  data_avaliacao DATE,
+  FOREIGN KEY (id_aluno) REFERENCES Aluno(id_aluno),
+  FOREIGN KEY (id_disciplinas) REFERENCES Diciplinas(id_disciplinas)
+);
