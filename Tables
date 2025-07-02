@@ -4,6 +4,7 @@ create table Alunos (
   nome_aluno Varchar(200),
   data_nasc_aluno date,
   genero_aluno varchar(50),
+  endereco_aluno VARCHAR(200),
   telefone_aluno INT,
   email_aluno varchar(150)
 );
