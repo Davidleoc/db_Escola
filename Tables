@@ -1,62 +1,61 @@
--- Criando as tabelas do banco de dados db_escola
-create table Alunos (
+CREATE TABLE Alunos (
   id_aluno INT PRIMARY KEY,	
-  nome_aluno Varchar(200),
-  data_nasc_aluno date,
-  genero_aluno varchar(50),
+  nome_aluno VARCHAR(200),
+  data_nasc_aluno DATE,
+  genero_aluno VARCHAR(50),
   endereco_aluno VARCHAR(200),
-  telefone_aluno INT,
-  email_aluno varchar(150)
+  telefone_aluno VARCHAR(20),
+  email_aluno VARCHAR(150)
 );
 
 CREATE TABLE Professor (
   id_professor INT PRIMARY KEY,
-  nome_professor Varchar(200),
-  data_nasc_professor date,
-  genero_professor varchar(50),
-  telefone_professor INT,
-  email_professor varchar(150)
+  nome_professor VARCHAR(200),
+  data_nasc_professor DATE,
+  genero_professor VARCHAR(50),
+  telefone_professor VARCHAR(20),
+  email_professor VARCHAR(150)
 );
 
 CREATE TABLE Disciplinas (
-  id_disciplinas INT PRIMARY KEY,
-  nome_disciplina varchar(100),
-  desc_disciplina varchar(150),
-  carga_horaria varchar(50),
-  id_orientador INT,
-  FOREIGN KEY (id_orientador) REFERENCES Professor(id_professor)
+  id_disciplina INT PRIMARY KEY,
+  nome_disciplina VARCHAR(100),
+  desc_disciplina VARCHAR(150),
+  carga_horaria VARCHAR(50),
+  id_professor INT,
+  FOREIGN KEY (id_professor) REFERENCES Professor(id_professor)
 );
 
 CREATE TABLE Turma (
   id_turma INT PRIMARY KEY,
-  nome_turma varchar(20),
-  ano_letivo date,
-  id_orientador_turma INT,
-  FOREIGN Key (id_orientador_turma) REFERENCES Disciplinas(id_orientador)
+  nome_turma VARCHAR(20),
+  ano_letivo DATE,
+  id_professor INT,
+  FOREIGN KEY (id_professor) REFERENCES Professor(id_professor)
 );
 
 CREATE TABLE Turma_Disciplinas (
   id_turma INT,
-  id_disciplinas INT,
-  PRIMARY KEY (id_turma, id_disciplinas),  -- chave composta
+  id_disciplina INT,
+  PRIMARY KEY (id_turma, id_disciplina),
   FOREIGN KEY (id_turma) REFERENCES Turma(id_turma),
-  FOREIGN KEY (id_disciplinas) REFERENCES Disciplinas(id_disciplinas)
+  FOREIGN KEY (id_disciplina) REFERENCES Disciplinas(id_disciplina)
 );
 
 CREATE TABLE Turma_Alunos (
   id_turma INT,
   id_aluno INT,
-  PRIMARY KEY (id_turma, id_aluno),  -- chave primária composta (opcional, mas recomendada)
+  PRIMARY KEY (id_turma, id_aluno),
   FOREIGN KEY (id_turma) REFERENCES Turma(id_turma),
-  FOREIGN KEY (id_aluno) REFERENCES Aluno(id_aluno)
+  FOREIGN KEY (id_aluno) REFERENCES Alunos(id_aluno)
 );
 
 CREATE TABLE Notas (
   id_nota INT PRIMARY KEY,
   id_aluno INT,
-  id_disciplinas INT,
+  id_disciplina INT,
   valor_nota DOUBLE,
   data_avaliacao DATE,
-  FOREIGN KEY (id_aluno) REFERENCES Aluno(id_aluno),
-  FOREIGN KEY (id_disciplinas) REFERENCES Disciplinas(id_disciplinas)
+  FOREIGN KEY (id_aluno) REFERENCES Alunos(id_aluno),
+  FOREIGN KEY (id_disciplina) REFERENCES Disciplinas(id_disciplina)
 );
