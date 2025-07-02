@@ -18,8 +18,8 @@ CREATE TABLE Professor (
   email_professor varchar(150)
 );
 
-CREATE TABLE Diciplinas (
-  id_diciplinas INT PRIMARY KEY,
+CREATE TABLE Disciplinas (
+  id_disciplinas INT PRIMARY KEY,
   nome_disciplina varchar(100),
   desc_disciplina varchar(150),
   carga_horaria varchar(50),
@@ -32,7 +32,7 @@ CREATE TABLE Turma (
   nome_turma varchar(20),
   ano_letivo date,
   id_orientador_turma INT,
-  FOREIGN Key (id_orientador_turma) REFERENCES Diciplinas(id_orientador)
+  FOREIGN Key (id_orientador_turma) REFERENCES Disciplinas(id_orientador)
 );
 
 CREATE TABLE Turma_Disciplinas (
@@ -40,7 +40,7 @@ CREATE TABLE Turma_Disciplinas (
   id_disciplinas INT,
   PRIMARY KEY (id_turma, id_disciplinas),  -- chave composta
   FOREIGN KEY (id_turma) REFERENCES Turma(id_turma),
-  FOREIGN KEY (id_disciplinas) REFERENCES Diciplinas(id_disciplinas)
+  FOREIGN KEY (id_disciplinas) REFERENCES Disciplinas(id_disciplinas)
 );
 
 CREATE TABLE Turma_Alunos (
@@ -58,5 +58,5 @@ CREATE TABLE Notas (
   valor_nota DOUBLE,
   data_avaliacao DATE,
   FOREIGN KEY (id_aluno) REFERENCES Aluno(id_aluno),
-  FOREIGN KEY (id_disciplinas) REFERENCES Diciplinas(id_disciplinas)
+  FOREIGN KEY (id_disciplinas) REFERENCES Disciplinas(id_disciplinas)
 );
